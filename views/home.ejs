@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>WireWise</title>
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+
+    <!-- Vendor CSS Files -->
+    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" />
+    <link href="/vendor/aos/aos.css" rel="stylesheet" />
+    <link href="/vendor/glightbox/css/glightbox.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/vendor/swiper/swiper-bundle.min.css" />
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Jost:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Main CSS File -->
+    <link href="/css/main.css" rel="stylesheet" />
+
+    <!-- Favicons -->
+    <link href="" rel="icon" />
+    <link href="" rel="apple-touch-icon" />
+  </head>
+  <body class="index-page">
+    <header id="header" class="header d-flex align-items-center fixed-top">
+      <div
+        class="container-fluid container-xl position-relative d-flex align-items-center"
+      >
+        <a href="index.html" class="logo d-flex align-items-center me-auto">
+          <!-- Uncomment the line below if you also wish to use an image logo -->
+          <!-- <img src="assets/img/logo.png" alt=""> -->
+          <h1 class="sitename">WireWise</h1>
+        </a>
+        <%if(currUser){%>
+        <a class="btn btn-danger btn-md rounded-2xl" href="/user/logout"
+          >Log Out</a
+        >
+        <%}else{%>
+        <a class="btn-getstarted" href="/user/registerUser">Sign Up</a>
+        <a class="btn-getstarted" href="/user/loginUser">Log In</a>
+        <%}%>
+      </div>
+    </header>
+
+    <main class="main">
+      <!-- Hero Section -->
+      <section id="hero" class="hero section dark-background">
+        <div class="container">
+          <%- include("../views/includes/flash")%>
+          <div class="row gy-4">
+            <div
+              class="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center"
+              data-aos="zoom-out"
+            >
+              <h1>Predicting Quality,<br />Optimizing Performance</h1>
+              <div class="d-flex mt-4">
+                <a href="#about" class="btn-get-started">Get Started</a>
+                <a
+                  href="https://www.youtube.com/watch?v=Y7f98aduVJ8"
+                  class="glightbox btn-watch-video d-flex align-items-center"
+                  ><i class="bi bi-play-circle"></i><span>Watch Video</span></a
+                >
+              </div>
+            </div>
+            <div
+              class="col-lg-6 order-1 order-lg-2 hero-img"
+              data-aos="zoom-out"
+              data-aos-delay="200"
+            >
+              <img src="/img/hero-img.png" class="img-fluid animated" alt="" />
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- /Hero Section -->
+
+      <!-- About Section -->
+      <section id="about" class="about section">
+        <!-- Section Title -->
+        <div class="container section-title" data-aos="fade-up">
+          <h2>About Us</h2>
+        </div>
+        <!-- End Section Title -->
+
+        <div class="container">
+          <div class="row gy-4">
+            <div
+              class="col-lg-6 content"
+              data-aos="fade-up"
+              data-aos-delay="100"
+            >
+              <p>
+                At the forefront of innovation in the aluminum manufacturing
+                industry, our mission is to leverage cutting-edge technology to
+                enhance efficiency and quality.
+              </p>
+              <ul>
+                <li class="mb-2">
+                  <i class="bi bi-check2-circle"></i>
+                  <span
+                    >Utilizes machine learning to predict critical physical
+                    properties of aluminum wire rods (tensile strength, yield
+                    strength, elongation) based on input parameters like
+                    material composition, temperature, and processing
+                    conditions.</span
+                  >
+                </li>
+                <li class="mb-2">
+                  <i class="bi bi-check2-circle"></i>
+                  <span
+                    >Trained on a robust dataset of 10,000 rows, enabling highly
+                    accurate predictions and insights into the relationships
+                    between input variables and material properties.</span
+                  >
+                </li>
+                <li>
+                  <i class="bi bi-check2-circle"></i>
+                  <span
+                    >Efficient backend processing using Flask/Node.js ensures
+                    fast and reliable predictions, making the solution easy to
+                    integrate into manufacturing workflows.</span
+                  >
+                </li>
+              </ul>
+            </div>
+
+            <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
+              <p>
+                Our project focuses on developing a machine learning-based
+                solution to predict the physical properties of aluminum wire
+                rods, such as tensile strength, yield strength, and elongation.
+                By analyzing key input parameters, including the percentages of
+                aluminum, magnesium, zinc, silicon, temperature, rolling speed,
+                and heat treatment status, our model provides manufacturers with
+                precise predictions to streamline production.
+              </p>
+              <a href="/aliRoute/read-more" class="read-more"
+                ><span>Read More</span><i class="bi bi-arrow-right"></i
+              ></a>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- /About Section -->
+
+      <!-- Why Us Section -->
+      <section
+        id="why-us"
+        class="section why-us light-background"
+        data-builder="section"
+      >
+        <div class="container-fluid">
+          <div class="row gy-4">
+            <div
+              class="col-lg-7 d-flex flex-column justify-content-center order-2 order-lg-1"
+            >
+              <div
+                class="content px-xl-5"
+                data-aos="fade-up"
+                data-aos-delay="100"
+              >
+                <h3><strong>Why Choose Us?</strong></h3>
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                  Duis aute irure dolor in reprehenderit
+                </p>
+              </div>
+
+              <div
+                class="faq-container px-xl-5"
+                data-aos="fade-up"
+                data-aos-delay="200"
+              >
+                <div class="faq-item faq-active">
+                  <h3>
+                    <span>01</span> Optimized Manufacturing through Data-Driven
+                    Decisions
+                  </h3>
+                  <div class="faq-content">
+                    <p>
+                      Our solution empowers manufacturers to make highly
+                      informed decisions by analyzing complex relationships
+                      between material composition and processing conditions.
+                      With real-time predictive analytics, you can adjust
+                      variables such as aluminum composition, temperature, and
+                      rolling speed to achieve the optimal physical properties
+                      for aluminum wire rods.
+                    </p>
+                  </div>
+                  <i class="faq-toggle bi bi-chevron-right"></i>
+                </div>
+                <!-- End Faq item-->
+
+                <div class="faq-item">
+                  <h3>
+                    <span>02</span> Enhanced Product Quality and Process
+                    Efficiency
+                  </h3>
+                  <div class="faq-content">
+                    <p>
+                      Our machine learning solution is designed to ensure
+                      consistent product quality by accurately predicting the
+                      physical properties of aluminum wire rods before
+                      production. By analyzing a wide range of input variables
+                      such as material composition, temperature, and processing
+                      speed, our model helps manufacturers avoid defects and
+                      deviations from desired standards. This leads to
+                      higher-quality products with improved tensile strength,
+                      yield strength, and elongation.
+                    </p>
+                  </div>
+                  <i class="faq-toggle bi bi-chevron-right"></i>
+                </div>
+                <!-- End Faq item-->
+
+                <div class="faq-item">
+                  <h3><span>03</span> Scalable and Adaptable Solutions</h3>
+                  <div class="faq-content">
+                    <p>
+                      Our machine learning model is designed with scalability in
+                      mind, ensuring that it can handle increasing data volumes
+                      and complexity as your production grows. Whether you are
+                      producing small batches or scaling up to large industrial
+                      operations, our solution seamlessly adapts to meet your
+                      evolving needs. As more data is collected from your
+                      manufacturing processes, the model improves its accuracy,
+                      providing even more precise predictions over time.
+                    </p>
+                  </div>
+                  <i class="faq-toggle bi bi-chevron-right"></i>
+                </div>
+                <!-- End Faq item-->
+              </div>
+            </div>
+
+            <div class="col-lg-5 order-1 order-lg-2 why-us-img">
+              <img
+                src="/img/why-us.png"
+                class="img-fluid"
+                alt=""
+                data-aos="zoom-in"
+                data-aos-delay="100"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- /Why Us Section -->
+
+      <!-- Skills Section -->
+      <section id="skills" class="skills section">
+        <div class="container" data-aos="fade-up" data-aos-delay="100">
+          <div class="row">
+            <div class="col-lg-6 d-flex align-items-center">
+              <img src="/img/skills.png" class="img-fluid" alt="" />
+            </div>
+
+            <div class="col-lg-6 pt-4 pt-lg-0 content">
+              <h3>Technologies Used</h3>
+              <p class="fst-italic">
+                Our project is built on a robust technological stack designed
+                for efficiency, scalability, and user-friendliness.
+              </p>
+
+              <div class="skills-content skills-animation">
+                <div class="progress">
+                  <span class="skill"
+                    ><span>EJS</span> <i class="val">100%</i></span
+                  >
+                  <div class="progress-bar-wrap">
+                    <div
+                      class="progress-bar"
+                      role="progressbar"
+                      aria-valuenow="100"
+                      aria-valuemin="0"
+                      aria-valuemax="100"
+                    ></div>
+                  </div>
+                </div>
+                <!-- End Skills Item -->
+
+                <div class="progress">
+                  <span class="skill"
+                    ><span>Express</span> <i class="val">90%</i></span
+                  >
+                  <div class="progress-bar-wrap">
+                    <div
+                      class="progress-bar"
+                      role="progressbar"
+                      aria-valuenow="90"
+                      aria-valuemin="0"
+                      aria-valuemax="100"
+                    ></div>
+                  </div>
+                </div>
+                <!-- End Skills Item -->
+
+                <div class="progress">
+                  <span class="skill"
+                    ><span>JavaScript</span> <i class="val">75%</i></span
+                  >
+                  <div class="progress-bar-wrap">
+                    <div
+                      class="progress-bar"
+                      role="progressbar"
+                      aria-valuenow="75"
+                      aria-valuemin="0"
+                      aria-valuemax="100"
+                    ></div>
+                  </div>
+                </div>
+                <!-- End Skills Item -->
+
+                <div class="progress">
+                  <span class="skill"
+                    ><span>MongoDB</span> <i class="val">55%</i></span
+                  >
+                  <div class="progress-bar-wrap">
+                    <div
+                      class="progress-bar"
+                      role="progressbar"
+                      aria-valuenow="55"
+                      aria-valuemin="0"
+                      aria-valuemax="100"
+                    ></div>
+                  </div>
+                </div>
+                <!-- End Skills Item -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- /Skills Section -->
+
+      <!-- Services Section -->
+      <section id="services" class="services section light-background">
+        <!-- Section Title -->
+        <div class="container section-title" data-aos="fade-up">
+          <h2>Services</h2>
+          <p>
+            Necessitatibus eius consequatur ex aliquid fuga eum quidem sint
+            consectetur velit
+          </p>
+        </div>
+        <!-- End Section Title -->
+
+        <div class="container">
+          <div class="row gy-4">
+            <div
+              class="col-xl-3 col-md-6 d-flex"
+              data-aos="fade-up"
+              data-aos-delay="100"
+            >
+              <div class="service-item position-relative">
+                <div class="icon"><i class="bi bi-activity icon"></i></div>
+                <h4><a href="" class="stretched-link">Lorem Ipsum</a></h4>
+                <p>
+                  Voluptatum deleniti atque corrupti quos dolores et quas
+                  molestias excepturi
+                </p>
+              </div>
+            </div>
+            <!-- End Service Item -->
+
+            <div
+              class="col-xl-3 col-md-6 d-flex"
+              data-aos="fade-up"
+              data-aos-delay="200"
+            >
+              <div class="service-item position-relative">
+                <div class="icon">
+                  <i class="bi bi-bounding-box-circles icon"></i>
+                </div>
+                <h4><a href="" class="stretched-link">Sed ut perspici</a></h4>
+                <p>
+                  Duis aute irure dolor in reprehenderit in voluptate velit esse
+                  cillum dolore
+                </p>
+              </div>
+            </div>
+            <!-- End Service Item -->
+
+            <div
+              class="col-xl-3 col-md-6 d-flex"
+              data-aos="fade-up"
+              data-aos-delay="300"
+            >
+              <div class="service-item position-relative">
+                <div class="icon">
+                  <i class="bi bi-calendar4-week icon"></i>
+                </div>
+                <h4><a href="" class="stretched-link">Magni Dolores</a></h4>
+                <p>
+                  Excepteur sint occaecat cupidatat non proident, sunt in culpa
+                  qui officia
+                </p>
+              </div>
+            </div>
+            <!-- End Service Item -->
+
+            <div
+              class="col-xl-3 col-md-6 d-flex"
+              data-aos="fade-up"
+              data-aos-delay="400"
+            >
+              <div class="service-item position-relative">
+                <div class="icon"><i class="bi bi-broadcast icon"></i></div>
+                <h4><a href="" class="stretched-link">Nemo Enim</a></h4>
+                <p>
+                  At vero eos et accusamus et iusto odio dignissimos ducimus qui
+                  blanditiis
+                </p>
+              </div>
+            </div>
+            <!-- End Service Item -->
+          </div>
+        </div>
+      </section>
+      <!-- /Services Section -->
+
+      <!-- Call To Action Section -->
+      <section
+        id="call-to-action"
+        class="call-to-action section dark-background"
+      >
+        <img src="/img/cta-bg.jpg" alt="" />
+
+        <div class="container">
+          <div class="row" data-aos="zoom-in" data-aos-delay="100">
+            <div class="col-xl-9 text-center text-xl-start">
+              <h3>Call To Action</h3>
+              <p>
+                Duis aute irure dolor in reprehenderit in voluptate velit esse
+                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+                cupidatat non proident, sunt in culpa qui officia deserunt
+                mollit anim id est laborum.
+              </p>
+            </div>
+            <div class="col-xl-3 cta-btn-container text-center">
+              <a class="cta-btn align-middle" href="#">Call To Action</a>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- /Call To Action Section -->
+
+      <!-- Team Section -->
+      <section id="team" class="team section">
+        <!-- Section Title -->
+        <div class="container section-title" data-aos="fade-up">
+          <h2>Team</h2>
+          <p>Our dedicated team members</p>
+        </div>
+        <!-- End Section Title -->
+
+        <div class="container">
+          <div class="row gy-4">
+            <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
+              <div class="team-member d-flex align-items-start">
+                <div class="pic">
+                  <img src="#" class="img-fluid" alt="" />
+                </div>
+                <div class="member-info">
+                  <h4>Lakshay Sachdeva</h4>
+                  <span>Team Leader</span>
+                  <p>
+                    Explicabo voluptatem mollitia et repellat qui dolorum quasi
+                  </p>
+                  <div class="social">
+                    <a href=""><i class="bi bi-twitter-x"></i></a>
+                    <a href=""><i class="bi bi-facebook"></i></a>
+                    <a href=""><i class="bi bi-instagram"></i></a>
+                    <a href=""> <i class="bi bi-linkedin"></i> </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- End Team Member -->
+
+            <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
+              <div class="team-member d-flex align-items-start">
+                <div class="pic">
+                  <img src="#" class="img-fluid" alt="" />
+                </div>
+                <div class="member-info">
+                  <h4>Kashika</h4>
+                  <span>Presentation Designer</span>
+                  <p>
+                    Aut maiores voluptates amet et quis praesentium qui senda
+                    para
+                  </p>
+                  <div class="social">
+                    <a href=""><i class="bi bi-twitter-x"></i></a>
+                    <a href=""><i class="bi bi-facebook"></i></a>
+                    <a href=""><i class="bi bi-instagram"></i></a>
+                    <a href=""> <i class="bi bi-linkedin"></i> </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- End Team Member -->
+
+            <div class="col-lg-6" data-aos="fade-up" data-aos-delay="300">
+              <div class="team-member d-flex align-items-start">
+                <div class="pic">
+                  <img src="#" class="img-fluid" alt="" />
+                </div>
+                <div class="member-info">
+                  <h4>Khushleen Kaur</h4>
+                  <span>Presentation Designer</span>
+                  <p>
+                    Quisquam facilis cum velit laborum corrupti fuga rerum quia
+                  </p>
+                  <div class="social">
+                    <a href=""><i class="bi bi-twitter-x"></i></a>
+                    <a href=""><i class="bi bi-facebook"></i></a>
+                    <a href=""><i class="bi bi-instagram"></i></a>
+                    <a href=""> <i class="bi bi-linkedin"></i> </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- End Team Member -->
+
+            <div class="col-lg-6" data-aos="fade-up" data-aos-delay="400">
+              <div class="team-member d-flex align-items-start">
+                <div class="pic">
+                  <img src="#" class="img-fluid" alt="" />
+                </div>
+                <div class="member-info">
+                  <h4>Karan Singh Bisht</h4>
+                  <span>Developer</span>
+                  <p>
+                    Dolorum tempora officiis odit laborum officiis et et
+                    accusamus
+                  </p>
+                  <div class="social">
+                    <a href=""><i class="bi bi-twitter-x"></i></a>
+                    <a href=""><i class="bi bi-facebook"></i></a>
+                    <a href=""><i class="bi bi-instagram"></i></a>
+                    <a href=""> <i class="bi bi-linkedin"></i> </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- End Team Member -->
+
+            <div class="col-lg-6" data-aos="fade-up" data-aos-delay="400">
+              <div class="team-member d-flex align-items-start">
+                <div class="pic">
+                  <img src="#" class="img-fluid" alt="" />
+                </div>
+                <div class="member-info">
+                  <h4>Annapurna Adhikari</h4>
+                  <span>Presentation Designer</span>
+                  <p>
+                    Dolorum tempora officiis odit laborum officiis et et
+                    accusamus
+                  </p>
+                  <div class="social">
+                    <a href=""><i class="bi bi-twitter-x"></i></a>
+                    <a href=""><i class="bi bi-facebook"></i></a>
+                    <a href=""><i class="bi bi-instagram"></i></a>
+                    <a href=""> <i class="bi bi-linkedin"></i> </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- End Team Member -->
+
+            <div class="col-lg-6" data-aos="fade-up" data-aos-delay="400">
+              <div class="team-member d-flex align-items-start">
+                <div class="pic">
+                  <img src="#" class="img-fluid" alt="" />
+                </div>
+                <div class="member-info">
+                  <h4>Shreshta Rajput</h4>
+                  <span>Developer</span>
+                  <p>
+                    Dolorum tempora officiis odit laborum officiis et et
+                    accusamus
+                  </p>
+                  <div class="social">
+                    <a href=""><i class="bi bi-twitter-x"></i></a>
+                    <a href=""><i class="bi bi-facebook"></i></a>
+                    <a href=""><i class="bi bi-instagram"></i></a>
+                    <a href=""> <i class="bi bi-linkedin"></i> </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- End Team Member -->
+          </div>
+        </div>
+      </section>
+      <!-- /Team Section -->
+
+      <!-- Pricing Section -->
+      <section id="pricing" class="pricing section light-background">
+        <!-- Section Title -->
+        <div class="container section-title" data-aos="fade-up">
+          <h2>Pricing</h2>
+          <p>
+            Necessitatibus eius consequatur ex aliquid fuga eum quidem sint
+            consectetur velit
+          </p>
+        </div>
+        <!-- End Section Title -->
+
+        <div class="container">
+          <div class="row gy-4">
+            <div class="col-lg-4" data-aos="zoom-in" data-aos-delay="100">
+              <div class="pricing-item">
+                <h3>Free Plan</h3>
+                <h4><sup>$</sup>0<span> / month</span></h4>
+                <ul>
+                  <li>
+                    <i class="bi bi-check"></i>
+                    <span>Quam adipiscing vitae proin</span>
+                  </li>
+                  <li>
+                    <i class="bi bi-check"></i>
+                    <span>Nec feugiat nisl pretium</span>
+                  </li>
+                  <li>
+                    <i class="bi bi-check"></i>
+                    <span>Nulla at volutpat diam uteera</span>
+                  </li>
+                  <li class="na">
+                    <i class="bi bi-x"></i>
+                    <span>Pharetra massa massa ultricies</span>
+                  </li>
+                  <li class="na">
+                    <i class="bi bi-x"></i>
+                    <span>Massa ultricies mi quis hendrerit</span>
+                  </li>
+                </ul>
+                <a href="#" class="buy-btn">Buy Now</a>
+              </div>
+            </div>
+            <!-- End Pricing Item -->
+
+            <div class="col-lg-4" data-aos="zoom-in" data-aos-delay="200">
+              <div class="pricing-item featured">
+                <h3>Business Plan</h3>
+                <h4><sup>$</sup>29<span> / month</span></h4>
+                <ul>
+                  <li>
+                    <i class="bi bi-check"></i>
+                    <span>Quam adipiscing vitae proin</span>
+                  </li>
+                  <li>
+                    <i class="bi bi-check"></i>
+                    <span>Nec feugiat nisl pretium</span>
+                  </li>
+                  <li>
+                    <i class="bi bi-check"></i>
+                    <span>Nulla at volutpat diam uteera</span>
+                  </li>
+                  <li>
+                    <i class="bi bi-check"></i>
+                    <span>Pharetra massa massa ultricies</span>
+                  </li>
+                  <li>
+                    <i class="bi bi-check"></i>
+                    <span>Massa ultricies mi quis hendrerit</span>
+                  </li>
+                </ul>
+                <a href="#" class="buy-btn">Buy Now</a>
+              </div>
+            </div>
+            <!-- End Pricing Item -->
+
+            <div class="col-lg-4" data-aos="zoom-in" data-aos-delay="300">
+              <div class="pricing-item">
+                <h3>Developer Plan</h3>
+                <h4><sup>$</sup>49<span> / month</span></h4>
+                <ul>
+                  <li>
+                    <i class="bi bi-check"></i>
+                    <span>Quam adipiscing vitae proin</span>
+                  </li>
+                  <li>
+                    <i class="bi bi-check"></i>
+                    <span>Nec feugiat nisl pretium</span>
+                  </li>
+                  <li>
+                    <i class="bi bi-check"></i>
+                    <span>Nulla at volutpat diam uteera</span>
+                  </li>
+                  <li>
+                    <i class="bi bi-check"></i>
+                    <span>Pharetra massa massa ultricies</span>
+                  </li>
+                  <li>
+                    <i class="bi bi-check"></i>
+                    <span>Massa ultricies mi quis hendrerit</span>
+                  </li>
+                </ul>
+                <a href="#" class="buy-btn">Buy Now</a>
+              </div>
+            </div>
+            <!-- End Pricing Item -->
+          </div>
+        </div>
+      </section>
+      <!-- /Pricing Section -->
+
+      <!-- Faq 2 Section -->
+      <section id="faq-2" class="faq-2 section light-background">
+        <!-- Section Title -->
+        <div class="container section-title" data-aos="fade-up">
+          <h2>Frequently Asked Questions</h2>
+          <p>
+            Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex
+            aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos
+            quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia
+            fugiat sit in iste officiis commodi quidem hic quas.
+          </p>
+        </div>
+        <!-- End Section Title -->
+
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-lg-10">
+              <div class="faq-container">
+                <div
+                  class="faq-item faq-active"
+                  data-aos="fade-up"
+                  data-aos-delay="200"
+                >
+                  <i class="faq-icon bi bi-question-circle"></i>
+                  <h3>Non consectetur a erat nam at lectus urna duis?</h3>
+                  <div class="faq-content">
+                    <p>
+                      Feugiat pretium nibh ipsum consequat. Tempus iaculis urna
+                      id volutpat lacus laoreet non curabitur gravida. Venenatis
+                      lectus magna fringilla urna porttitor rhoncus dolor purus
+                      non.
+                    </p>
+                  </div>
+                  <i class="faq-toggle bi bi-chevron-right"></i>
+                </div>
+                <!-- End Faq item-->
+
+                <div class="faq-item" data-aos="fade-up" data-aos-delay="300">
+                  <i class="faq-icon bi bi-question-circle"></i>
+                  <h3>
+                    Feugiat scelerisque varius morbi enim nunc faucibus a
+                    pellentesque?
+                  </h3>
+                  <div class="faq-content">
+                    <p>
+                      Dolor sit amet consectetur adipiscing elit pellentesque
+                      habitant morbi. Id interdum velit laoreet id donec
+                      ultrices. Fringilla phasellus faucibus scelerisque
+                      eleifend donec pretium. Est pellentesque elit ullamcorper
+                      dignissim. Mauris ultrices eros in cursus turpis massa
+                      tincidunt dui.
+                    </p>
+                  </div>
+                  <i class="faq-toggle bi bi-chevron-right"></i>
+                </div>
+                <!-- End Faq item-->
+
+                <div class="faq-item" data-aos="fade-up" data-aos-delay="400">
+                  <i class="faq-icon bi bi-question-circle"></i>
+                  <h3>
+                    Dolor sit amet consectetur adipiscing elit pellentesque?
+                  </h3>
+                  <div class="faq-content">
+                    <p>
+                      Eleifend mi in nulla posuere sollicitudin aliquam ultrices
+                      sagittis orci. Faucibus pulvinar elementum integer enim.
+                      Sem nulla pharetra diam sit amet nisl suscipit. Rutrum
+                      tellus pellentesque eu tincidunt. Lectus urna duis
+                      convallis convallis tellus. Urna molestie at elementum eu
+                      facilisis sed odio morbi quis
+                    </p>
+                  </div>
+                  <i class="faq-toggle bi bi-chevron-right"></i>
+                </div>
+                <!-- End Faq item-->
+
+                <div class="faq-item" data-aos="fade-up" data-aos-delay="500">
+                  <i class="faq-icon bi bi-question-circle"></i>
+                  <h3>
+                    Ac odio tempor orci dapibus. Aliquam eleifend mi in nulla?
+                  </h3>
+                  <div class="faq-content">
+                    <p>
+                      Dolor sit amet consectetur adipiscing elit pellentesque
+                      habitant morbi. Id interdum velit laoreet id donec
+                      ultrices. Fringilla phasellus faucibus scelerisque
+                      eleifend donec pretium. Est pellentesque elit ullamcorper
+                      dignissim. Mauris ultrices eros in cursus turpis massa
+                      tincidunt dui.
+                    </p>
+                  </div>
+                  <i class="faq-toggle bi bi-chevron-right"></i>
+                </div>
+                <!-- End Faq item-->
+
+                <div class="faq-item" data-aos="fade-up" data-aos-delay="600">
+                  <i class="faq-icon bi bi-question-circle"></i>
+                  <h3>
+                    Tempus quam pellentesque nec nam aliquam sem et tortor
+                    consequat?
+                  </h3>
+                  <div class="faq-content">
+                    <p>
+                      Molestie a iaculis at erat pellentesque adipiscing
+                      commodo. Dignissim suspendisse in est ante in. Nunc vel
+                      risus commodo viverra maecenas accumsan. Sit amet nisl
+                      suscipit adipiscing bibendum est. Purus gravida quis
+                      blandit turpis cursus in
+                    </p>
+                  </div>
+                  <i class="faq-toggle bi bi-chevron-right"></i>
+                </div>
+                <!-- End Faq item-->
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- /Faq 2 Section -->
+
+      <!-- Contact Section -->
+      <section id="contact" class="contact section">
+        <!-- Section Title -->
+        <div class="container section-title" data-aos="fade-up">
+          <h2>Contact</h2>
+        </div>
+        <!-- End Section Title -->
+
+        <div class="container" data-aos="fade-up" data-aos-delay="100">
+          <div class="row gy-4">
+            <div class="col-lg-5">
+              <div class="info-wrap">
+                <div
+                  class="info-item d-flex"
+                  data-aos="fade-up"
+                  data-aos-delay="200"
+                >
+                  <i class="bi bi-geo-alt flex-shrink-0"></i>
+                  <div>
+                    <h3>Address</h3>
+                    <p>A108 Adam Street, New York, NY 535022</p>
+                  </div>
+                </div>
+                <!-- End Info Item -->
+
+                <div
+                  class="info-item d-flex"
+                  data-aos="fade-up"
+                  data-aos-delay="300"
+                >
+                  <i class="bi bi-telephone flex-shrink-0"></i>
+                  <div>
+                    <h3>Call Us</h3>
+                    <p>+1 5589 55488 55</p>
+                  </div>
+                </div>
+                <!-- End Info Item -->
+
+                <div
+                  class="info-item d-flex"
+                  data-aos="fade-up"
+                  data-aos-delay="400"
+                >
+                  <i class="bi bi-envelope flex-shrink-0"></i>
+                  <div>
+                    <h3>Email Us</h3>
+                    <p>info@example.com</p>
+                  </div>
+                </div>
+                <!-- End Info Item -->
+
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d48389.78314118045!2d-74.006138!3d40.710059!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25a22a3bda30d%3A0xb89d1fe6bc499443!2sDowntown%20Conference%20Center!5e0!3m2!1sen!2sus!4v1676961268712!5m2!1sen!2sus"
+                  frameborder="0"
+                  style="border: 0; width: 100%; height: 270px"
+                  allowfullscreen=""
+                  loading="lazy"
+                  referrerpolicy="no-referrer-when-downgrade"
+                ></iframe>
+              </div>
+            </div>
+
+            <div class="col-lg-7">
+              <form
+                action="forms/contact.php"
+                method="post"
+                class="php-email-form"
+                data-aos="fade-up"
+                data-aos-delay="200"
+              >
+                <div class="row gy-4">
+                  <div class="col-md-6">
+                    <label for="name-field" class="pb-2">Your Name</label>
+                    <input
+                      type="text"
+                      name="name"
+                      id="name-field"
+                      class="form-control"
+                      required=""
+                    />
+                  </div>
+
+                  <div class="col-md-6">
+                    <label for="email-field" class="pb-2">Your Email</label>
+                    <input
+                      type="email"
+                      class="form-control"
+                      name="email"
+                      id="email-field"
+                      required=""
+                    />
+                  </div>
+
+                  <div class="col-md-12">
+                    <label for="subject-field" class="pb-2">Subject</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      name="subject"
+                      id="subject-field"
+                      required=""
+                    />
+                  </div>
+
+                  <div class="col-md-12">
+                    <label for="message-field" class="pb-2">Message</label>
+                    <textarea
+                      class="form-control"
+                      name="message"
+                      rows="10"
+                      id="message-field"
+                      required=""
+                    ></textarea>
+                  </div>
+
+                  <div class="col-md-12 text-center">
+                    <div class="loading">Loading</div>
+                    <div class="error-message"></div>
+                    <div class="sent-message">
+                      Your message has been sent. Thank you!
+                    </div>
+
+                    <button type="submit">Send Message</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <!-- End Contact Form -->
+          </div>
+        </div>
+      </section>
+      <!-- /Contact Section -->
+    </main>
+
+    <!-- Scroll Top -->
+    <a
+      href="#"
+      id="scroll-top"
+      class="scroll-top d-flex align-items-center justify-content-center"
+      ><i class="bi bi-arrow-up-short"></i
+    ></a>
+
+    <!-- Preloader -->
+    <div id="preloader"></div>
+
+    <!-- Vendor JS Files -->
+    <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/vendor/php-email-form/validate.js"></script>
+    <script src="/vendor/aos/aos.js"></script>
+    <script src="/vendor/glightbox/js/glightbox.min.js"></script>
+    <script src="/vendor/swiper/swiper-bundle.min.js"></script>
+    <script src="/vendor/waypoints/noframework.waypoints.js"></script>
+    <script src="/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
+    <script src="/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+
+    <!-- Main JS File -->
+    <script src="/js/main.js"></script>
+  </body>
+</html>
