@@ -74,3 +74,7 @@ module.exports.logoutUser = asyncHandler(async (req, res, next) => {
     res.redirect("/user/loginUser");
   });
 });
+
+module.exports.userDashboard = asyncHandler(async (req, res, next) => {
+  res.render("dashboard", { user: req.user });
+});
