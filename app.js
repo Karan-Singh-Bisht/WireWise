@@ -13,19 +13,19 @@ const cookieParser = require("cookie-parser");
 const flash = require("connect-flash");
 const methodOverride = require("method-override");
 
-// const dbUrl = process.env.MONGODB_URI;
+const dbUrl = process.env.MONGODB_URI;
 
-// const store = MongoStore.create({
-//   mongoUrl: dbUrl,
-//   crypto: {
-//     secret: process.env.EXPRESS_SESSION_SECRET,
-//   },
-//   touchAfter: 24 * 60 * 60,
-// });
+const store = MongoStore.create({
+  mongoUrl: dbUrl,
+  crypto: {
+    secret: process.env.EXPRESS_SESSION_SECRET,
+  },
+  touchAfter: 24 * 60 * 60,
+});
 
 app.use(
   expressSession({
-    // store,
+    store,
     secret: process.env.EXPRESS_SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
