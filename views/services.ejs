@@ -1,222 +1,400 @@
 <% layout("/layouts/boilerplate")%>
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Aluminum Properties Dashboard</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-    <style>
-      .dashboard-container {
-        margin-top: 20px;
-      }
-      .card-title {
-        font-size: 1.5rem;
-        font-weight: bold;
-      }
-      .form-range {
-        width: 100%;
-      }
-      .output-value {
-        font-weight: bold;
-        font-size: 1.25rem;
-        color: #2c3e50;
-      }
-      .btn-primary {
-        margin-top: 20px;
-        width: 100%;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="container-fluid dashboard-container">
-      <div class="row">
-        <!-- Input Parameters Section -->
-        <div class="col-md-4">
-          <div class="card mb-4">
-            <div class="card-body">
-              <h5 class="card-title">Input Parameters</h5>
+<style>
+  :root {
+    --main-background-color: linear-gradient(90deg);
+    --card-color: linear-gradient(75deg, #ccced2 50%, #a6a9b2 75%);
+    --popup-color: linear-gradient(90deg, #396afc 0%, #2948ff 100%);
+    --text-color: #000;
+    --border-color-1: #66a6ff;
+    --border-color-2: #667eea;
+    --accent-color: #667eea;
+    --input-slider-fill-color: #667eea;
+  }
+  .container-fluid {
+    padding: 20px;
+    background-image: var(--main-background-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .input-form {
+    background-image: var(--card-color);
+    color: var(--text-color);
+    border-radius: 20px;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+  .input-title {
+    text-align: center;
+    margin: 1rem;
+    font-size: 30px;
+    font-weight: bold;
+  }
+  label {
+    font-weight: bold;
+    font-size: 20px;
+  }
+  .form-ele {
+    margin-bottom: 0px !important;
+    border: 2px solid transparent;
+    border-radius: 10px;
+    padding: 10px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
 
-              <!-- Aluminum Percentage -->
-              <div class="mb-3">
-                <label for="aluminum">Aluminum %</label>
-                <input
-                  type="range"
-                  class="form-range"
-                  id="aluminum"
-                  min="0"
-                  max="100"
-                  value="95"
-                  oninput="updateValue('aluminum-value', this.value)"
-                />
-                <p>Selected: <span id="aluminum-value">95</span>%</p>
-              </div>
+  .form-ele input:focus,
+  .form-ele select:focus {
+    border-color: var(--border-color-1);
+    box-shadow: 0 0 8px rgba(102, 166, 255, 0.5);
+  }
 
-              <!-- Temperature -->
-              <div class="mb-3">
-                <label for="temperature">Temperature (°C)</label>
-                <input
-                  type="range"
-                  class="form-range"
-                  id="temperature"
-                  min="0"
-                  max="1000"
-                  value="500"
-                  oninput="updateValue('temperature-value', this.value)"
-                />
-                <p>Selected: <span id="temperature-value">500</span> °C</p>
-              </div>
+  .form-ele:hover {
+    border-color: var(--border-color-2);
+    box-shadow: 0 0 8px rgba(102, 110, 234, 0.5);
+  }
+  .btn-primary {
+    margin-top: 20px;
+    width: 100%;
+  }
+  .popup {
+    position: absolute;
+    width: 50%;
+    display: none;
+    transform: translate(0, -50%);
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.1s ease;
+  }
+  .popup.show {
+    display: block;
+    opacity: 1;
+    transform: translate(0, -50%) scale(1);
+  }
+  .popup.hide {
+    opacity: 0;
+    transform: translate(0, -50%) scale(0.9);
+  }
+  .output-form {
+    height: 100%;
+    background-image: var(--popup-color);
+    color: var(--text-color);
+    border-radius: 14px;
+  }
+  .output-title {
+    margin-top: 0;
+    padding: 1rem;
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+  }
+  .close {
+    position: absolute;
+    top: 0px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 30px;
+  }
 
-              <!-- Magnesium Percentage -->
-              <div class="mb-3">
-                <label for="magnesium">Magnesium %</label>
-                <input
-                  type="range"
-                  class="form-range"
-                  id="magnesium"
-                  min="0"
-                  max="100"
-                  value="5"
-                  oninput="updateValue('magnesium-value', this.value)"
-                />
-                <p>Selected: <span id="magnesium-value">5</span>%</p>
-              </div>
+  /* Slider Styles */
+  input[type="range"] {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 8px;
+    background: transparent;
+  }
 
-              <!-- Silicon Percentage -->
-              <div class="mb-3">
-                <label for="silicon">Silicon %</label>
-                <input
-                  type="range"
-                  class="form-range"
-                  id="silicon"
-                  min="0"
-                  max="100"
-                  value="2"
-                  oninput="updateValue('silicon-value', this.value)"
-                />
-                <p>Selected: <span id="silicon-value">2</span>%</p>
-              </div>
+  input[type="range"]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 8px;
+    background: linear-gradient(
+      to right,
+      var(--input-slider-fill-color) var(--slider-fill-percent),
+      #ddd var(--slider-fill-percent)
+    );
+    border-radius: 4px;
+  }
 
-              <!-- Zinc Percentage -->
-              <div class="mb-3">
-                <label for="zinc">Zinc %</label>
-                <input
-                  type="range"
-                  class="form-range"
-                  id="zinc"
-                  min="0"
-                  max="100"
-                  value="1"
-                  oninput="updateValue('zinc-value', this.value)"
-                />
-                <p>Selected: <span id="zinc-value">1</span>%</p>
-              </div>
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: var(--accent-color);
+    cursor: pointer;
+  }
 
-              <!-- Rolling Speed -->
-              <div class="mb-3">
-                <label for="rolling-speed">Rolling Speed (m/s)</label>
-                <input
-                  type="range"
-                  class="form-range"
-                  id="rolling-speed"
-                  min="0"
-                  max="50"
-                  value="25"
-                  oninput="updateValue('rolling-speed-value', this.value)"
-                />
-                <p>Selected: <span id="rolling-speed-value">25</span> m/s</p>
-              </div>
+  /* Animation */
+  .animate-on-load {
+    animation: fadeInUp 0.8s ease-out forwards;
+  }
 
-              <!-- Heat Treatment (Yes/No) -->
-              <div class="mb-3">
-                <label for="heat-treatment">Heat Treatment</label>
-                <select id="heat-treatment" class="form-select">
-                  <option value="yes">Yes</option>
-                  <option value="no">No</option>
-                </select>
-              </div>
-            </div>
+  @keyframes fadeInUp {
+    0% {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
+<body>
+  <div class="container-fluid">
+    <!-- Input Parameters Section -->
+    <div class="col-md-7">
+      <div class="card mb-3 input-form animate-on-load">
+        <div class="card-body">
+          <h5 class="card-title input-title">Input Parameters</h5>
+
+          <!-- Aluminum Percentage -->
+          <div class="mb-3 form-ele">
+            <label for="aluminum">Aluminum %</label>
+            <input
+              type="range"
+              class="form-range"
+              id="aluminum"
+              min="0"
+              max="100"
+              value="95"
+              oninput="updateValue('aluminum-value', this.value);updateSlider(this)"
+            />
+            <p>Selected: <span id="aluminum-value">95</span>%</p>
           </div>
-        </div>
 
-        <!-- Output Predictions Section -->
-        <div class="col-md-8">
-          <div class="card mb-4">
-            <div class="card-body">
-              <h5 class="card-title">Predicted Properties</h5>
-
-              <div class="mb-3">
-                <p>
-                  <strong>Tensile Strength:</strong>
-                  <span id="tensile-strength" class="output-value">-</span> MPa
-                </p>
-                <p>
-                  <strong>Yield Strength:</strong>
-                  <span id="yield-strength" class="output-value">-</span> MPa
-                </p>
-                <p>
-                  <strong>Elongation:</strong>
-                  <span id="elongation" class="output-value">-</span> %
-                </p>
-              </div>
-
-              <!-- Button to trigger prediction -->
-              <button class="btn btn-primary" onclick="getPredictions()">
-                Get Predictions
-              </button>
-            </div>
+          <!-- Temperature -->
+          <div class="mb-3 form-ele">
+            <label for="temperature">Temperature (°C)</label>
+            <input
+              type="range"
+              class="form-range"
+              id="temperature"
+              min="0"
+              max="1000"
+              value="500"
+              oninput="updateValue('temperature-value', this.value);updateSlider(this)"
+            />
+            <p>Selected: <span id="temperature-value">500</span> °C</p>
           </div>
+
+          <!-- Magnesium Percentage -->
+          <div class="mb-3 form-ele">
+            <label for="magnesium">Magnesium %</label>
+            <input
+              type="range"
+              class="form-range"
+              id="magnesium"
+              min="0"
+              max="100"
+              value="5"
+              oninput="updateValue('magnesium-value', this.value);updateSlider(this)"
+            />
+            <p>Selected: <span id="magnesium-value">5</span>%</p>
+          </div>
+
+          <!-- Silicon Percentage -->
+          <div class="mb-3 form-ele">
+            <label for="silicon">Silicon %</label>
+            <input
+              type="range"
+              class="form-range"
+              id="silicon"
+              min="0"
+              max="100"
+              value="2"
+              oninput="updateValue('silicon-value', this.value);updateSlider(this)"
+            />
+            <p>Selected: <span id="silicon-value">2</span>%</p>
+          </div>
+
+          <!-- Zinc Percentage -->
+          <div class="mb-3 form-ele">
+            <label for="zinc">Zinc %</label>
+            <input
+              type="range"
+              class="form-range"
+              id="zinc"
+              min="0"
+              max="100"
+              value="1"
+              oninput="updateValue('zinc-value', this.value);updateSlider(this)"
+            />
+            <p>Selected: <span id="zinc-value">1</span>%</p>
+          </div>
+
+          <!-- Rolling Speed -->
+          <div class="mb-3 form-ele">
+            <label for="rolling-speed">Rolling Speed (m/s)</label>
+            <input
+              type="range"
+              class="form-range"
+              id="rolling-speed"
+              min="0"
+              max="1"
+              value="0"
+              step="0.01"
+              oninput="updateValue('rolling-speed-value', this.value);updateSlider(this)"
+            />
+            <p>Selected: <span id="rolling-speed-value">0</span> m/s</p>
+          </div>
+
+          <!-- Heat Treatment (Yes/No) -->
+          <div class="mb-3 form-ele">
+            <label for="heat-treatment">Heat Treatment</label>
+            <select id="heat-treatment" class="form-select">
+              <option value="1">Yes</option>
+              <option value="0">No</option>
+            </select>
+          </div>
+          <!-- Button to trigger prediction -->
+          <button
+            class="btn btn-primary"
+            id="button"
+            onclick="getPredictions()"
+          >
+            Get Predictions
+          </button>
         </div>
       </div>
     </div>
 
-    <!-- JavaScript to handle input updates -->
-    <script>
-      function updateValue(id, value) {
-        document.getElementById(id).textContent = value;
+    <!-- Output PopUp -->
+    <div class="popup" id="popup">
+      <div class="card mb-4 output-form animate-on-load">
+        <div class="card-body">
+          <span class="close" id="close-popup">&times;</span>
+          <h5 class="card-title output-title">Predicted Properties</h5>
+
+          <div class="mb-3"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript to handle input updates -->
+  <script>
+    function updateValue(id, value) {
+      document.getElementById(id).textContent = value;
+    }
+
+    // Popup variables
+    const popup = document.getElementById("popup");
+    const openPopup = document.getElementById("button");
+    const closePopup = document.getElementById("close-popup");
+
+    // Popup functions
+    function showPopup() {
+      popup.classList.add("show");
+      setTimeout(() => {
+        popup.style.opacity = "1";
+      }, 10);
+    }
+
+    function hidePopup() {
+      popup.classList.add("hide");
+      popup.style.opacity = "0";
+      setTimeout(() => {
+        popup.classList.remove("show");
+        popup.classList.remove("hide");
+      }, 300); // Matches the transition duration in CSS
+    }
+
+    openPopup.addEventListener("click", showPopup);
+    closePopup.addEventListener("click", hidePopup);
+
+    // Apply animations on page load
+    window.onload = () => {
+      const elements = document.querySelectorAll(".animate-on-load");
+      elements.forEach((element) => {
+        element.style.opacity = "1";
+        element.style.transform = "translateY(0)";
+      });
+    };
+
+    function updateSlider(slider) {
+      const value = slider.value;
+      document.getElementById(`${slider.id}-value`).textContent = value;
+      const fillPercent = (value / slider.max) * 100 + "%";
+      slider.style.setProperty("--slider-fill-percent", fillPercent);
+    }
+
+    // Initialize slider fill on page load
+    document.querySelectorAll('input[type="range"]').forEach((slider) => {
+      updateSlider(slider);
+    });
+
+    // Function to get predictions from API
+    function getPredictions() {
+      // Get the values from the input fields
+      const Al = document.getElementById("aluminum").value;
+      const Temperature = document.getElementById("temperature").value;
+      const Mg = document.getElementById("magnesium").value;
+      const Si = document.getElementById("silicon").value;
+      const Zn = document.getElementById("zinc").value;
+      const Rolling_Speed = document.getElementById("rolling-speed").value;
+      const Heat_Treatment = document.getElementById("heat-treatment").value;
+
+      // Check for empty or invalid inputs
+      if (
+        !Al ||
+        !Temperature ||
+        !Mg ||
+        !Si ||
+        !Zn ||
+        !Rolling_Speed ||
+        !Heat_Treatment
+      ) {
+        alert("Please fill in all the fields.");
+        return;
       }
 
-      function getPredictions() {
-        // Get the values from the input fields
-        const aluminum = document.getElementById("aluminum").value;
-        const temperature = document.getElementById("temperature").value;
-        const magnesium = document.getElementById("magnesium").value;
-        const silicon = document.getElementById("silicon").value;
-        const zinc = document.getElementById("zinc").value;
-        const rollingSpeed = document.getElementById("rolling-speed").value;
-        const heatTreatment = document.getElementById("heat-treatment").value;
-
-        // Send the data to the backend
-        fetch("/predict", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            aluminum,
-            temperature,
-            magnesium,
-            silicon,
-            zinc,
-            rollingSpeed,
-            heatTreatment,
-          }),
+      console.log(
+        JSON.stringify({
+          "Al (%)": parseFloat(Al),
+          "Temperature (Â°C)": parseFloat(Temperature),
+          "Mg (%)": parseFloat(Mg),
+          "Si (%)": parseFloat(Si),
+          "Zn (%)": parseFloat(Zn),
+          "Rolling Speed (m/s)": parseFloat(Rolling_Speed),
+          "Heat Treatment (Yes=1, No=0)": parseInt(Heat_Treatment),
         })
-          .then((response) => response.json())
-          .then((data) => {
-            // Update the prediction fields
-            document.getElementById("tensile-strength").textContent =
-              data.tensile_strength;
-            document.getElementById("yield-strength").textContent =
-              data.yield_strength;
-            document.getElementById("elongation").textContent = data.elongation;
-          })
-          .catch((error) => console.error("Error:", error));
-      }
-    </script>
-  </body>
-</html>
+      );
+
+      // Send the data to the backend
+      fetch("https://aluminium-api.onrender.com/predict", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          "Al (%)": parseFloat(Al),
+          "Temperature (Â°C)": parseFloat(Temperature),
+          "Mg (%)": parseFloat(Mg),
+          "Si (%)": parseFloat(Si),
+          "Zn (%)": parseFloat(Zn),
+          "Rolling Speed (m/s)": parseFloat(Rolling_Speed),
+          "Heat Treatment (Yes=1, No=0)": parseInt(Heat_Treatment),
+        }),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          return response.json();
+        })
+        .then((data) => {
+          // Update the prediction fields with the response data
+          console.log(data);
+          localStorage.setItem("predictionData", JSON.stringify(data));
+          // console.log(localStorage);
+          window.location.href = "/user/<%=currUser.id%>/dashboard";
+          // Redirect to the dashboard page
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+          alert("Failed to get predictions. Please try again later.");
+        });
+    }
+  </script>
+</body>

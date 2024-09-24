@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aluminium Predictions Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+      /* General Styles */
+      body {
+        display: flex;
+        margin: 0;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f4f4f4;
+      }
+
+      /* Sidebar Styles */
+      .sidebar {
+        width: 250px;
+        background-color: #007bff;
+        padding: 20px;
+        color: #fff;
+        height: 100vh;
+        position: fixed;
+      }
+
+      .sidebar h2 {
+        margin: 0;
+        padding: 10px 0;
+        font-size: 1.5rem;
+        text-align: center;
+      }
+
+      .sidebar nav {
+        margin-top: 20px;
+      }
+
+      .sidebar nav a {
+        color: #fff;
+        text-decoration: none;
+        display: block;
+        padding: 10px;
+        border-radius: 5px;
+        transition: background 0.3s;
+      }
+
+      .sidebar nav a:hover {
+        background-color: #0056b3;
+      }
+
+      /* Main Content Styles */
+      .main-content {
+        margin-left: 250px;
+        padding: 20px;
+        flex-grow: 1;
+      }
+
+      /* Header Styles */
+      .header {
+        background-color: #fff;
+        padding: 10px;
+        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .header h1 {
+        margin: 0;
+        color: #007bff;
+      }
+
+      /* Prediction Result Styles */
+      .prediction-results {
+        background-color: #ffffff;
+        padding: 2rem;
+        border-radius: 8px;
+        margin-bottom: 2rem;
+        box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+      }
+
+      .prediction-results div {
+        text-align: center;
+        padding: 1rem;
+        background: #e7f0ff;
+        border-radius: 5px;
+        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+      }
+
+      /* Chart Styles */
+      .chart-container {
+        background-color: #ffffff;
+        padding: 2rem;
+        border-radius: 8px;
+        box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+      }
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        body {
+          flex-direction: column;
+        }
+
+        .sidebar {
+          width: 100%;
+          height: auto;
+          position: relative;
+        }
+
+        .main-content {
+          margin-left: 0;
+        }
+
+        .prediction-results {
+          grid-template-columns: 1fr; /* Stack on smaller screens */
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <h2>Dashboard</h2>
+      <nav>
+        <a href="/aliRoute">Home</a>
+        <a href="#">Predictions</a>
+        <a href="#">Analytics</a>
+        <a href="#">Settings</a>
+      </nav>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <div class="header">
+        <h1>Welcome <%=user.fullName%></h1>
+      </div>
+
+      <!-- Prediction Result Display -->
+      <div class="prediction-results">
+        <div>
+          <p>Tensile Strength:</p>
+          <h3 id="tensile-strength"></h3>
+          <p>MPa</p>
+        </div>
+        <div>
+          <p>Yield Strength:</p>
+          <h3 id="yield-strength"></h3>
+          <p>MPa</p>
+        </div>
+        <div>
+          <p>Elongation:</p>
+          <h3 id="elongation"></h3>
+          <p>%</p>
+        </div>
+      </div>
+
+      <!-- Chart Display -->
+      <div class="chart-container">
+        <canvas id="predictionChart" width="400" height="200"></canvas>
+      </div>
+    </div>
+
+    <script>
+      let chartData = [];
+
+      // Initialize the chart
+      const ctx = document.getElementById("predictionChart").getContext("2d");
+      const predictionChart = new Chart(ctx, {
+        type: "bar",
+        data: {
+          labels: [],
+          datasets: [
+            {
+              label: "Tensile Strength",
+              data: [],
+              borderColor: "rgba(0, 123, 255, 1)",
+              backgroundColor: "rgba(0, 123, 255, 0.2)",
+              borderWidth: 1,
+              fill: true,
+            },
+            {
+              label: "Yield Strength",
+              data: [],
+              borderColor: "rgba(220, 53, 69, 1)",
+              backgroundColor: "rgba(220, 53, 69, 0.2)",
+              borderWidth: 1,
+              fill: true,
+            },
+            {
+              label: "Elongation",
+              data: [],
+              borderColor: "rgba(40, 167, 69, 1)",
+              backgroundColor: "rgba(40, 167, 69, 0.2)",
+              borderWidth: 1,
+              fill: true,
+            },
+          ],
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true,
+            },
+          },
+          plugins: {
+            legend: {
+              labels: {
+                color: "#333",
+              },
+            },
+          },
+        },
+      });
+
+      // Function to load prediction data from local storage
+      function loadPredictionData() {
+        const predictionData = JSON.parse(
+          localStorage.getItem("predictionData")
+        );
+
+        if (
+          predictionData &&
+          predictionData["Predicted results"] &&
+          Array.isArray(predictionData["Predicted results"])
+        ) {
+          const predictedValues = predictionData["Predicted results"];
+
+          // Update the prediction result fields
+          document.getElementById("tensile-strength").textContent =
+            predictedValues[0]; // Tensile Strength
+          document.getElementById("yield-strength").textContent =
+            predictedValues[1]; // Yield Strength
+          document.getElementById("elongation").textContent =
+            predictedValues[2]; // Elongation
+
+          // Store chart data
+          const newPrediction = {
+            tensile_strength: predictedValues[0],
+            yield_strength: predictedValues[1],
+            elongation: predictedValues[2],
+          };
+
+          // Push the new prediction to chartData array
+          chartData.push(newPrediction);
+          updateChart(chartData);
+        } else {
+          console.error("No valid prediction data found.");
+        }
+      }
+
+      // Function to update chart with new data
+      function updateChart(data) {
+        // Clear existing data and labels
+        predictionChart.data.labels = data.map(
+          (_, index) => `Prediction ${index + 1}`
+        );
+        predictionChart.data.datasets[0].data = data.map(
+          (d) => d.tensile_strength
+        );
+        predictionChart.data.datasets[1].data = data.map(
+          (d) => d.yield_strength
+        );
+        predictionChart.data.datasets[2].data = data.map((d) => d.elongation);
+
+        // Update the chart
+        predictionChart.update();
+      }
+
+      // Load prediction data on page load
+      window.onload = function () {
+        loadPredictionData();
+      };
+    </script>
+  </body>
+</html>

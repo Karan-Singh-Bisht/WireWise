@@ -106,7 +106,7 @@
               <div class="d-flex mt-4">
                 <a href="#about" class="btn-get-started">Get Started</a>
                 <a
-                  href="https://www.youtube.com/watch?v=Y7f98aduVJ8"
+                  href="#"
                   class="glightbox btn-watch-video d-flex align-items-center"
                   ><i class="bi bi-play-circle"></i><span>Watch Video</span></a
                 >
@@ -401,11 +401,17 @@
             <div class="col-12 d-flex" data-aos="fade-up" data-aos-delay="100">
               <div class="service-item position-relative w-100">
                 <div class="icon"><i class="bi bi-activity icon"></i></div>
+                <%if(currUser){%>
                 <h4>
                   <a href="/aliRoute/services" class="stretched-link"
                     >Aluminum Purity</a
                   >
                 </h4>
+                <%}else{%>
+                <a href="/user/registerUser" class="stretched-link"
+                  >Please register to see services</a
+                >
+                <%}%>
                 <p>Predict the purity and properties of given aluminum</p>
               </div>
             </div>
