@@ -385,9 +385,19 @@
         })
         .then((data) => {
           // Update the prediction fields with the response data
-          console.log(data);
           localStorage.setItem("predictionData", JSON.stringify(data));
-          // console.log(localStorage);
+          const userId = "<%= currUser.id %>";
+          const key = `predictions_${userId}`;
+
+          // Get existing predictions from user-specific localStorage
+          const existingPredictions =
+            JSON.parse(localStorage.getItem(key)) || [];
+
+          // Add new prediction to the array
+          existingPredictions.push(data);
+
+          // Save updated predictions back to user-specific localStorage
+          localStorage.setItem(key, JSON.stringify(existingPredictions));
           window.location.href = "/user/<%=currUser.id%>/dashboard";
           // Redirect to the dashboard page
         })

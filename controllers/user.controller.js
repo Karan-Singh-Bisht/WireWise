@@ -78,3 +78,7 @@ module.exports.logoutUser = asyncHandler(async (req, res, next) => {
 module.exports.userDashboard = asyncHandler(async (req, res, next) => {
   res.render("dashboard", { user: req.user });
 });
+
+module.exports.pastPrediction = asyncHandler(async (req, res) => {
+  res.render("pastPrediction", { user: req.user });
+});
