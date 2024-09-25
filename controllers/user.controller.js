@@ -18,9 +18,6 @@ module.exports.registerUser = asyncHandler(async (req, res, next) => {
       return res.redirect("/user/registerUser");
     }
 
-    // Log the file to check if it's being uploaded correctly
-    console.log("Uploaded file: ", req.file);
-
     // Upload avatar to Cloudinary (assuming req.file contains the uploaded file)
     const avatarLocalPath = req.file?.path;
     const avatar = await uploadOnCloudinary(avatarLocalPath);
