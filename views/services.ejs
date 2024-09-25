@@ -398,7 +398,9 @@
 
           // Save updated predictions back to user-specific localStorage
           localStorage.setItem(key, JSON.stringify(existingPredictions));
-          window.location.href = "/user/<%=currUser.id%>/dashboard";
+          setTimeout(() => {
+            window.location.href = `/user/${userId}/dashboard`;
+          }, 1000);
           // Redirect to the dashboard page
         })
         .catch((error) => {

@@ -15,37 +15,62 @@
       }
 
       /* Sidebar Styles */
+      /* Sidebar container */
       .sidebar {
-        width: 250px;
+        width: 225px;
         background-color: #007bff;
         padding: 20px;
         color: #fff;
         height: 100vh;
         position: fixed;
+        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+        display: flex;
+        flex-direction: column;
       }
 
+      /* Sidebar header */
       .sidebar h2 {
         margin: 0;
-        padding: 10px 0;
-        font-size: 1.5rem;
+        padding: 15px 0;
+        font-size: 1.6rem;
+        font-weight: 600;
         text-align: center;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* Separator line */
       }
 
+      /* Navigation */
       .sidebar nav {
-        margin-top: 20px;
+        margin-top: 30px;
+        display: flex;
+        flex-direction: column;
       }
 
+      /* Links in sidebar */
       .sidebar nav a {
         color: #fff;
         text-decoration: none;
         display: block;
-        padding: 10px;
+        padding: 12px 15px;
         border-radius: 5px;
-        transition: background 0.3s;
+        /* margin-bottom: 10px; */
+        transition: background 0.3s ease, transform 0.3s ease;
       }
 
+      /* Hover effect on links */
       .sidebar nav a:hover {
         background-color: #0056b3;
+        transform: translateX(
+          5px
+        ); /* Adds a smooth horizontal shift on hover */
+      }
+
+      /* Optional footer section for additional content */
+      .sidebar .footer {
+        padding: 10px;
+        font-size: 0.9rem;
+        text-align: center;
+        border-top: 1px solid rgba(255, 255, 255, 0.2); /* Separator for footer */
+        color: rgba(255, 255, 255, 0.8); /* Slightly faded text */
       }
 
       /* Main Content Styles */
@@ -128,7 +153,6 @@
       <nav>
         <a href="/aliRoute">Home</a>
         <a href="/user/<%=currUser.id%>/prediction">Predictions</a>
-        <a href="#">Analytics</a>
         <a href="#">Settings</a>
       </nav>
     </div>

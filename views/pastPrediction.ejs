@@ -1,56 +1,50 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Predictions Table</title>
-    <style>
-      table {
-        width: 100%;
-        border-collapse: collapse;
-      }
-      th,
-      td {
-        border: 1px solid #ddd;
-        padding: 8px;
-      }
-      th {
-        background-color: #f2f2f2;
-      }
-    </style>
-  </head>
-  <body>
-    <h1>Past Predictions</h1>
-    <table>
-      <thead>
-        <tr>
-          <th>Tensile Strength</th>
-          <th>Yield Strength</th>
-          <th>Elongation</th>
-        </tr>
-      </thead>
-      <tbody id="predictions-body">
-        <!-- Predictions will be populated here -->
-      </tbody>
-    </table>
+<% layout("/layouts/boilerplate")%>
+<style>
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  th,
+  td {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  th {
+    background-color: #f2f2f2;
+  }
+</style>
 
-    <script>
-      // Load predictions from user-specific localStorage
-      const userId = "<%= currUser.id %>"; // Replace with actual user ID
-      const key = `predictions_${userId}`;
-      const predictions = JSON.parse(localStorage.getItem(key)) || [];
-      const predictionsBody = document.getElementById("predictions-body");
+<body>
+  <h1>Past Predictions</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Tensile Strength</th>
+        <th>Yield Strength</th>
+        <th>Elongation</th>
+      </tr>
+    </thead>
+    <tbody id="predictions-body">
+      <!-- Predictions will be populated here -->
+    </tbody>
+  </table>
 
-      predictions.forEach((prediction) => {
-        const row = document.createElement("tr");
-        row.innerHTML = `
+  <script>
+    // Load predictions from user-specific localStorage
+    const userId = "<%= currUser.id %>"; // Replace with actual user ID
+    const key = `predictions_${userId}`;
+    const predictions = JSON.parse(localStorage.getItem(key)) || [];
+    const predictionsBody = document.getElementById("predictions-body");
+
+    predictions.forEach((prediction) => {
+      const row = document.createElement("tr");
+      row.innerHTML = `
           <td>${prediction["Predicted results"][0]}</td>
           <td>${prediction["Predicted results"][1]}</td>
           <td>${prediction["Predicted results"][2]}</td>
 
         `;
-        predictionsBody.appendChild(row);
-      });
-    </script>
-  </body>
-</html>
+      predictionsBody.appendChild(row);
+    });
+  </script>
+</body>
